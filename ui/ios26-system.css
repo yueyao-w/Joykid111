@@ -1,0 +1,1396 @@
+/* Joykid iOS 26 design system
+   Functional glass lives above solid, readable health content. */
+:root {
+  color-scheme: light;
+  --ios-bg-primary: #f4f6f5;
+  --ios-bg-secondary: #e9eeeb;
+  --ios-surface: #ffffff;
+  --ios-surface-elevated: #fbfcfb;
+  --ios-glass: rgba(248, 251, 249, .76);
+  --ios-glass-strong: rgba(250, 252, 251, .9);
+  --ios-glass-border: rgba(255, 255, 255, .82);
+  --ios-label-primary: #17231d;
+  --ios-label-secondary: #5f6d65;
+  --ios-label-tertiary: #87928c;
+  --ios-separator: rgba(54, 69, 61, .12);
+  --ios-green: #238451;
+  --ios-green-strong: #146c3e;
+  --ios-green-soft: #e5f2ea;
+  --ios-blue: #2176d2;
+  --ios-orange: #b86c22;
+  --ios-red: #c54444;
+  --ios-purple: #725bc2;
+  --ios-radius-sm: 11px;
+  --ios-radius-control: 15px;
+  --ios-radius-card: 20px;
+  --ios-radius-sheet: 30px;
+  --ios-page-padding: 18px;
+  --ios-section-gap: 24px;
+  --ios-card-padding: 18px;
+  --ios-shadow-card: 0 1px 1px rgba(24, 43, 33, .035), 0 8px 24px rgba(24, 43, 33, .045);
+  --ios-shadow-float: 0 14px 38px rgba(24, 43, 33, .15), 0 2px 8px rgba(24, 43, 33, .07);
+  --ios-ease: cubic-bezier(.2, .8, .2, 1);
+}
+
+html { background: var(--ios-bg-secondary); }
+
+body {
+  color: var(--ios-label-primary);
+  background:
+    radial-gradient(420px 280px at 90% 3%, rgba(197, 226, 210, .35), transparent 72%),
+    var(--ios-bg-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button, input, select, textarea { font: inherit; }
+button, [role="button"], label[for] { -webkit-tap-highlight-color: transparent; }
+.phone-shell button, .phone-shell [role="button"], .phone-shell label[for] { min-height: 44px; }
+button:focus-visible, [role="button"]:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, label[for]:focus-visible {
+  outline: 3px solid rgba(33, 118, 210, .34);
+  outline-offset: 2px;
+}
+
+button:active, [role="button"]:active { transform: scale(.98); }
+button:disabled, [aria-disabled="true"] { cursor: not-allowed; opacity: .46; }
+strong, b, time, .metric-value { font-variant-numeric: tabular-nums; }
+
+.phone-shell {
+  --jk-page-pad: var(--ios-page-padding);
+  --jk-section-gap: var(--ios-section-gap);
+  --jk-card-pad: var(--ios-card-padding);
+  color: var(--ios-label-primary);
+  background:
+    radial-gradient(320px 220px at 100% 0%, rgba(208, 232, 219, .36), transparent 74%),
+    var(--ios-bg-primary) !important;
+}
+
+.page.active {
+  align-content: start;
+  gap: var(--ios-section-gap) !important;
+  animation: iosPageIn .26s var(--ios-ease);
+  scroll-padding-block: 92px 112px;
+}
+
+@keyframes iosPageIn {
+  from { opacity: .72; transform: translateY(5px) scale(.996); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Navigation is the primary Liquid Glass functional layer. */
+.app-header, .subpage-nav, .seven-plan-nav, .train-task-nav, .feedback-nav {
+  border: 0 !important;
+  border-bottom: 1px solid var(--ios-glass-border) !important;
+  color: var(--ios-label-primary) !important;
+  background: var(--ios-glass) !important;
+  box-shadow: 0 8px 24px rgba(29, 53, 40, .055) !important;
+  backdrop-filter: blur(26px) saturate(145%) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(145%) !important;
+}
+
+.app-header::after, .subpage-nav::after, .seven-plan-nav::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -13px;
+  left: 0;
+  height: 14px;
+  background: linear-gradient(to bottom, rgba(244,246,245,.45), transparent);
+  pointer-events: none;
+}
+
+.app-header {
+  min-height: 70px;
+  padding-inline: var(--ios-page-padding) !important;
+  transition: min-height .25s var(--ios-ease), background .25s ease;
+}
+
+.phone-shell.is-scrolled .app-header {
+  min-height: 58px;
+  background: var(--ios-glass-strong) !important;
+}
+
+body:has(#plan.active) .app-header,
+body:has(.page.active > .subpage-nav) .app-header,
+body.chat-mode .app-header {
+  display: none;
+}
+
+.logo-word {
+  color: var(--ios-green) !important;
+  font-size: 23px !important;
+  font-weight: 800 !important;
+  letter-spacing: -.65px;
+}
+
+.round-icon, .subpage-nav > button, .seven-plan-nav > button {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--ios-glass-border) !important;
+  border-radius: 50% !important;
+  color: var(--ios-label-primary) !important;
+  background: rgba(255,255,255,.62) !important;
+  box-shadow: 0 4px 14px rgba(24,43,33,.07), inset 0 1px rgba(255,255,255,.65) !important;
+}
+
+.subpage-nav > div strong, .seven-plan-nav h1 {
+  color: var(--ios-label-primary) !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  letter-spacing: -.25px;
+}
+
+.subpage-nav > div span { color: var(--ios-label-secondary) !important; font-size: 12px !important; }
+
+#plan .seven-plan-nav {
+  width: auto !important;
+  max-width: 100% !important;
+  margin-inline: 0 !important;
+}
+
+#plan.page.active {
+  width: calc(100% + (2 * var(--ios-page-padding))) !important;
+  max-width: none !important;
+  margin-right: 0 !important;
+  margin-left: calc(-1 * var(--ios-page-padding)) !important;
+  padding-right: 8px !important;
+  padding-left: 8px !important;
+  box-sizing: border-box;
+}
+
+#plan .seven-plan-nav,
+#plan .plan-mode-switch,
+#plan .seven-goal-card,
+#plan .seven-timeline,
+#plan .long-plan-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Floating tab bar: stable top-level navigation, never an action surface. */
+.mobile-tabs {
+  left: 16px !important;
+  right: 16px !important;
+  bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  width: auto !important;
+  min-height: 68px !important;
+  padding: 7px 8px !important;
+  border: 1px solid var(--ios-glass-border) !important;
+  border-radius: 26px !important;
+  overflow: visible !important;
+  background: rgba(247,250,248,.8) !important;
+  box-shadow: var(--ios-shadow-float) !important;
+  backdrop-filter: blur(28px) saturate(155%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(155%) !important;
+  transform: none !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+.mobile-tabs::before { display: none !important; }
+.mobile-tab {
+  min-height: 52px !important;
+  border-radius: 18px !important;
+  color: var(--ios-label-secondary) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  transition: color .2s ease, transform .2s var(--ios-ease), background .2s ease;
+}
+.mobile-tab.active:not(.ai-tab) { color: var(--ios-green) !important; background: transparent !important; }
+.mobile-tab.active:not(.ai-tab)::after {
+  bottom: 1px !important;
+  width: 16px !important;
+  height: 3px !important;
+  background: var(--ios-green) !important;
+}
+.mobile-tab .tab-icon, .mobile-tab .tab-icon svg { width: 23px; height: 23px; }
+.mobile-tab .tab-icon * { stroke-width: 1.8 !important; }
+.mobile-tabs .ai-doctor-orb {
+  width: 44px !important;
+  height: 44px !important;
+  border: 1px solid rgba(35,132,81,.18) !important;
+  background: rgba(232,244,237,.82) !important;
+  box-shadow: 0 6px 16px rgba(35,132,81,.13) !important;
+}
+
+/* Solid content layer. */
+.child-card, .score-card, .package-card, .today-card, .module-card, .video-plan,
+.reward-card, .program-card, .daily-record-card, .daily-plan-card, .ai-card,
+.chat-card, .quick-panel, .member-card, .goods-card, .consult-card, .detail-hero,
+.detail-card, .shop-hero, .shop-section, .profile-hero, .profile-card,
+.growth-twin-card, .twin-section, .doctor-list article, .history-overview-card,
+.history-metrics-grid article, .folder-summary, .folder-group, .record-card,
+.appointment-card, .refill-prescription-card, .refill-form-card, .refill-data-card,
+.refill-evidence-card, .refill-readiness-card, .refill-next-card, .refill-order-card,
+.refill-doctor-card, .refill-chat-doctor, .refill-record-attachment,
+.issued-prescription-card, .benefit-order-card, .care-track-card, .mine-card,
+.home-report-upload, .home-today-card, .home-growth-brief, .history-plan-list,
+.folder-security, .report-detail-card, .plan-section, .care-plan-card {
+  border: 1px solid rgba(47,65,55,.08) !important;
+  border-radius: var(--ios-radius-card) !important;
+  color: var(--ios-label-primary);
+  background: var(--ios-surface) !important;
+  box-shadow: var(--ios-shadow-card) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.page.active h1 {
+  color: var(--ios-label-primary) !important;
+  font-size: clamp(27px, 7.5vw, 32px) !important;
+  font-weight: 760 !important;
+  line-height: 1.14 !important;
+  letter-spacing: -.7px !important;
+}
+
+.section-title h2, .home-section-title h2, .home-brief-title h2,
+.page.active section > h2, .page.active article > h2 {
+  color: var(--ios-label-primary) !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  letter-spacing: -.35px;
+}
+
+.page p { color: var(--ios-label-secondary); line-height: 1.5; }
+.page small, .page em, .page time, .page [class*="meta"] { color: var(--ios-label-tertiary); }
+
+#shopPackageCta {
+  color: #fff !important;
+}
+
+/* Home: one summary, one notice, grouped tasks. */
+.home-dashboard-card {
+  padding: 20px !important;
+  border: 1px solid rgba(35,132,81,.1) !important;
+  border-radius: 26px !important;
+  color: var(--ios-label-primary) !important;
+  background:
+    radial-gradient(180px 150px at 98% 0%, rgba(184,222,199,.42), transparent 72%),
+    var(--ios-surface) !important;
+  box-shadow: var(--ios-shadow-card) !important;
+}
+.home-dashboard-focus > span { color: var(--ios-green) !important; }
+.home-dashboard-stats {
+  border-block: 1px solid var(--ios-separator);
+  background: transparent !important;
+}
+.home-dashboard-stats article + article { border-left: 1px solid var(--ios-separator); }
+.home-dashboard-stats span { color: var(--ios-label-secondary) !important; }
+.home-dashboard-stats strong { color: var(--ios-label-primary) !important; }
+
+#home > .home-dashboard-card:first-child {
+  margin-top: 18px !important;
+}
+
+.home-attention-card, .home-refill-reminder {
+  border: 1px solid rgba(184,108,34,.17) !important;
+  border-radius: var(--ios-radius-card) !important;
+  background: #fffaf4 !important;
+  box-shadow: none !important;
+}
+.home-attention-card > span, .home-refill-copy span,
+.status-warning, [class*="warning"] { color: var(--ios-orange) !important; }
+
+.home-today-list {
+  gap: 0 !important;
+  overflow: hidden;
+  border: 1px solid var(--ios-separator);
+  border-radius: 16px;
+  background: var(--ios-surface);
+}
+.home-today-list article {
+  min-height: 68px;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.home-today-list article + article { border-top: 1px solid var(--ios-separator) !important; }
+.home-today-list article > button, .home-plan-entry { min-height: 44px !important; }
+
+/* Buttons and controls. */
+.home-attention-card button, .home-refill-reminder > button,
+.home-dashboard-actions button:first-child, .refill-next-card > button,
+.refill-submit-button, .refill-order-submit button, .appointment-summary button,
+.benefit-order-submit button, .lesson-primary, .shop-ai-copy button {
+  min-height: 46px !important;
+  border: 0 !important;
+  border-radius: var(--ios-radius-control) !important;
+  color: #fff !important;
+  background: var(--ios-green) !important;
+  box-shadow: 0 7px 18px rgba(35,132,81,.18) !important;
+  font-size: 15px !important;
+  font-weight: 650 !important;
+}
+
+.home-dashboard-actions button:last-child, .home-plan-entry,
+.refill-record-expand, .refill-order-rx > button, .refill-quick-reply button,
+.home-report-upload-actions label, .section-title button {
+  min-height: 44px;
+  border: 1px solid var(--ios-separator) !important;
+  border-radius: var(--ios-radius-control) !important;
+  color: var(--ios-green) !important;
+  background: var(--ios-surface-elevated) !important;
+  box-shadow: none !important;
+}
+
+input, select, textarea, .chat-field {
+  min-height: 46px;
+  border: 1px solid var(--ios-separator) !important;
+  border-radius: 14px !important;
+  color: var(--ios-label-primary) !important;
+  background: rgba(255,255,255,.94) !important;
+  box-shadow: inset 0 1px 2px rgba(24,43,33,.035) !important;
+}
+input::placeholder, textarea::placeholder { color: var(--ios-label-tertiary); }
+
+/* Inset grouped lists across records, plans and account. */
+.history-plan-list, .record-list, .portrait-list, .doctor-list,
+.mine-menu, .care-plan-group, .folder-group, .refill-readiness-list {
+  overflow: hidden;
+  border-radius: var(--ios-radius-card);
+}
+.history-plan-list > article, .record-list > article, .portrait-list > article,
+.mine-menu > *, .folder-document, .refill-readiness-list > * {
+  min-height: 56px;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.history-plan-list > article + article, .record-list > article + article,
+.portrait-list > article + article, .mine-menu > * + *, .folder-document + .folder-document,
+.refill-readiness-list > * + * { border-top: 1px solid var(--ios-separator) !important; }
+
+#mine.page.active {
+  grid-auto-rows: max-content;
+  gap: 8px !important;
+  padding-top: 12px !important;
+  padding-bottom: 66px !important;
+  overflow-y: hidden !important;
+}
+
+#mine .mine-menu {
+  height: max-content;
+  min-height: max-content;
+}
+
+#mine .mine-hero {
+  margin-top: 10px !important;
+  min-height: 88px !important;
+  padding-block: 10px !important;
+}
+
+#mine #mineName {
+  margin: 3px 0 2px !important;
+  font-size: clamp(22px, 6vw, 25px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.35px;
+}
+
+#mine .mine-growth-entry:not(.hidden) {
+  min-height: 84px !important;
+  padding-block: 9px !important;
+}
+
+#mine .mine-card {
+  padding: 12px !important;
+}
+
+#mine .mine-orders {
+  min-height: 116px;
+}
+
+#mine .order-actions i {
+  width: 34px;
+  height: 34px;
+}
+
+#mine .mine-menu > button {
+  min-height: 44px !important;
+  padding-block: 3px;
+}
+
+#mine .mine-menu-icon {
+  width: 32px;
+  height: 32px;
+}
+
+#mine .mine-menu small {
+  margin-top: 1px;
+}
+
+/* Compact daily-plan timeline while preserving 44pt actions. */
+#plan .seven-timeline {
+  gap: 0 !important;
+  padding: 0 0 92px 12px !important;
+}
+
+#plan .seven-timeline::before {
+  left: 19px !important;
+  top: 18px !important;
+  bottom: 104px !important;
+}
+
+#plan .seven-group-title {
+  grid-template-columns: 22px minmax(0, 1fr) !important;
+  min-height: 34px !important;
+  padding: 6px 0 2px !important;
+}
+
+#plan .seven-group-title i {
+  width: 14px !important;
+  height: 14px !important;
+  box-shadow: 0 0 0 3px #f6faf7 !important;
+}
+
+#plan .seven-group-title h2 {
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+#plan .seven-plan-row {
+  grid-template-columns: 38px minmax(0, 1fr) auto !important;
+  gap: 9px !important;
+  min-height: 60px !important;
+  margin-left: 22px !important;
+  padding: 7px 2px !important;
+}
+
+#plan .seven-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 13px !important;
+}
+
+#plan .seven-plan-row strong { font-size: 14px !important; line-height: 1.25 !important; }
+#plan .seven-plan-row p { margin-top: 2px !important; font-size: 11px !important; line-height: 1.3 !important; }
+#plan .seven-plan-row small { margin-top: 3px !important; font-size: 9px !important; }
+#plan .seven-plan-row button:not(.ghost) {
+  min-width: 70px !important;
+  min-height: 44px !important;
+  padding-inline: 8px !important;
+  font-size: 12px !important;
+}
+#plan .seven-plan-row button.ghost { min-width: 44px !important; min-height: 44px !important; }
+
+#checkin-history.page.active {
+  grid-auto-rows: max-content;
+  align-content: start;
+  padding-bottom: 112px !important;
+}
+
+#checkin-history .history-plan-list {
+  height: max-content;
+  min-height: max-content;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+#checkin-history > .subpage-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#checkin-history > .subpage-nav::after {
+  display: none !important;
+}
+
+#checkin-history > .subpage-nav > button:last-child {
+  justify-self: end;
+}
+
+#checkin-history .history-plan-list > article {
+  min-height: 48px !important;
+  padding-top: 9px !important;
+  padding-bottom: 9px !important;
+}
+
+#medical-folder.page.active {
+  grid-auto-rows: max-content;
+  align-content: start;
+  padding-bottom: 112px !important;
+}
+
+#medical-folder .subpage-nav {
+  border: 0 !important;
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#medical-folder #folderImportButton {
+  justify-self: end;
+}
+
+#medical-record-detail.page.active {
+  grid-auto-rows: max-content;
+  align-content: start;
+  padding-bottom: 120px !important;
+}
+
+#medical-record-detail > .subpage-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+}
+
+#medical-record-detail > .subpage-nav > button:last-child {
+  justify-self: end;
+}
+
+#medical-record-detail > .record-hero {
+  height: auto !important;
+  min-height: max-content !important;
+  margin-top: 18px !important;
+  overflow: visible !important;
+}
+
+#medical-record-detail .record-payment-consent {
+  align-items: start !important;
+  grid-template-columns: 18px minmax(0, 1fr) !important;
+}
+
+#medical-record-detail .record-payment-consent > input {
+  width: 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  margin: 1px 0 0 !important;
+  align-self: start;
+}
+
+#medical-record-detail .record-payment-consent > span {
+  display: block;
+  min-width: 0;
+  align-self: start;
+}
+
+#report-detail.page.active {
+  grid-auto-rows: max-content;
+  align-content: start;
+  padding-bottom: 120px !important;
+}
+
+#report-detail > .report-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#report-detail > .report-nav::after {
+  display: none !important;
+}
+
+#report-detail > .report-nav > button:last-child {
+  justify-self: end;
+}
+
+#report-detail > .report-overview {
+  height: auto !important;
+  min-height: max-content !important;
+  margin-top: 18px !important;
+  overflow: visible !important;
+}
+
+#growth-profile .subpage-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#growth-profile .subpage-nav::after {
+  display: none !important;
+}
+
+#growth-profile .subpage-nav > button:last-child {
+  justify-self: end;
+}
+
+#benefit-order .benefit-order-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#benefit-order .benefit-order-nav::after {
+  display: none !important;
+}
+
+#benefit-order .benefit-order-nav > button:last-child {
+  justify-self: end;
+}
+
+#refill-detail .refill-flow-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#refill-detail .refill-flow-nav::after {
+  display: none !important;
+}
+
+#refill-detail .refill-flow-nav > button:last-child {
+  justify-self: end;
+}
+
+#medication-management .subpage-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#medication-management .subpage-nav > button:last-child {
+  justify-self: end;
+}
+
+#medication-management .subpage-nav::after {
+  display: none !important;
+}
+
+#medication-management .medication-hero {
+  margin-top: 18px !important;
+}
+
+#medical-folder .subpage-nav::after { display: none !important; }
+
+#medical-folder .folder-group {
+  height: max-content;
+  min-height: max-content;
+}
+
+#medical-folder .folder-security {
+  box-sizing: border-box;
+  width: auto;
+  height: auto !important;
+  min-height: 72px;
+  margin: 14px 0 22px !important;
+  padding: 14px 16px !important;
+  overflow: visible !important;
+  grid-template-columns: 28px minmax(0, 1fr);
+}
+
+#medical-folder .folder-security > div {
+  min-width: 0;
+  overflow: visible;
+}
+
+#medical-folder .folder-security strong,
+#medical-folder .folder-security p {
+  display: block;
+  max-width: 100%;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: normal !important;
+  word-break: normal;
+}
+
+/* Let the chat tools use the full safe width instead of a narrow fixed cap. */
+#chat .ai-tool-row {
+  left: 50% !important;
+  width: calc(100% - 12px) !important;
+  max-width: 390px !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  padding-inline: 6px !important;
+}
+
+#chat .ai-tool {
+  min-width: 0 !important;
+  width: 100% !important;
+  padding-inline: 4px !important;
+  justify-content: center !important;
+}
+
+#chat > .ai-consult-hero,
+#chat > #askSuggestionCard {
+  position: relative;
+  left: 0;
+  width: calc(100% + 20px) !important;
+  max-width: none !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  justify-self: center !important;
+  box-sizing: border-box;
+}
+
+/* Keep the appointment confirmation immediately above the persistent tab bar. */
+#appointment-booking.page.active {
+  padding-bottom: 190px !important;
+}
+
+#appointment-booking > .subpage-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#appointment-booking > .subpage-nav > button:last-child {
+  justify-self: end;
+}
+
+#appointment-booking > .subpage-nav::after {
+  display: none !important;
+}
+
+#appointment-booking > .appointment-hero {
+  margin-top: 18px !important;
+}
+
+#appointment-booking .appointment-summary {
+  position: absolute !important;
+  right: 20px !important;
+  bottom: 88px !important;
+  left: 20px !important;
+  z-index: 30 !important;
+  margin: 0 !important;
+}
+
+/* The order body scrolls behind a docked submit bar with enough clearance. */
+#benefit-order.benefit-order-page.active {
+  grid-auto-rows: max-content;
+  align-content: start;
+  padding-bottom: 230px !important;
+  scroll-padding-bottom: 180px;
+}
+
+#benefit-order .benefit-order-submit {
+  position: absolute !important;
+  right: 16px !important;
+  bottom: 78px !important;
+  left: 16px !important;
+  width: auto !important;
+  height: 72px !important;
+  min-height: 72px !important;
+  margin: 0 !important;
+  padding: 10px 14px !important;
+  box-sizing: border-box;
+  border: 1px solid var(--ios-glass-border) !important;
+  border-radius: 26px 26px 18px 18px !important;
+  z-index: 30 !important;
+}
+
+#benefit-order .benefit-order-consent {
+  grid-template-columns: 18px minmax(0, 1fr) !important;
+  align-items: start !important;
+}
+
+#benefit-order .benefit-order-consent input[type="checkbox"] {
+  width: 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  margin: 0 !important;
+  align-self: start;
+  border: 0 !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  appearance: auto;
+  -webkit-appearance: checkbox;
+}
+
+#benefit-order .benefit-order-consent > span {
+  align-self: start;
+  padding-top: 0;
+}
+
+/* Commerce heading stays below the global header instead of sliding under it. */
+#subscribe .commerce-heading {
+  position: sticky;
+  top: 0;
+  z-index: 24;
+  min-height: 82px;
+  width: 100%;
+  max-width: 100%;
+  margin: 18px 0 0;
+  padding: 20px 0 8px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--ios-glass-border);
+  background: var(--ios-glass-strong);
+  box-shadow: 0 8px 20px rgba(24,43,33,.05);
+  backdrop-filter: blur(24px) saturate(145%);
+  -webkit-backdrop-filter: blur(24px) saturate(145%);
+}
+
+#subscribe .refined-shop-grid article > div:last-child > button {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  aspect-ratio: 1 / 1;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  display: grid;
+  place-items: center;
+  line-height: 1 !important;
+}
+
+/* Immersive training has its own full-width safe area. */
+.train-task-page.active .train-task-nav {
+  min-height: 116px !important;
+  padding: 64px 18px 8px !important;
+  grid-template-columns: 70px minmax(0, 1fr) 120px !important;
+  box-sizing: border-box;
+}
+
+.phone-shell > .train-task-page.active {
+  width: auto !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  margin: 0 auto !important;
+  position: relative;
+  right: 0 !important;
+  left: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  background: transparent !important;
+}
+
+@media (min-width: 600px) {
+  .phone-shell > #train-task.train-task-page.active {
+    height: 874px !important;
+    min-height: 874px !important;
+    max-height: 874px !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .phone-shell > #train-task.train-task-page.active {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+}
+
+.train-task-page.active .train-stage {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: calc(100% - 116px) !important;
+  margin: 0 !important;
+  padding: 10px 20px 24px !important;
+  box-sizing: border-box;
+  background: transparent !important;
+  margin-inline: auto !important;
+}
+
+.train-task-page.active .train-stage > * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.train-task-page.active .ticket-choice-row,
+.train-task-page.active .train-assist-bar,
+.train-task-page.active .train-actions {
+  width: 100% !important;
+  margin-inline: auto !important;
+}
+
+.train-task-page.active .train-visual {
+  width: 100% !important;
+  max-width: none !important;
+  background: transparent !important;
+  margin-inline: auto !important;
+}
+
+body.immersive-mode,
+body.immersive-mode .phone-shell {
+  background-color: #fff !important;
+}
+
+body.immersive-mode .phone-shell {
+  background-image: none !important;
+}
+
+.train-task-page.active .train-stage > p {
+  margin-bottom: 0 !important;
+}
+
+/* AI conversation: readable messages and floating glass composer. */
+#chat .ai-dialog-card { background: transparent !important; box-shadow: none !important; border: 0 !important; }
+#chat .message.bot > div:last-child, .doctor-message > div:last-child {
+  color: var(--ios-label-primary) !important;
+  background: var(--ios-surface) !important;
+  border: 1px solid rgba(47,65,55,.08) !important;
+  box-shadow: var(--ios-shadow-card) !important;
+}
+#chat .message.user > div:last-child, .user-message {
+  color: #163a27 !important;
+  background: var(--ios-green-soft) !important;
+  box-shadow: none !important;
+}
+#chat .ai-consult-input, .refill-chat-composer {
+  border: 1px solid var(--ios-glass-border) !important;
+  border-radius: 23px !important;
+  background: var(--ios-glass-strong) !important;
+  box-shadow: var(--ios-shadow-float) !important;
+  backdrop-filter: blur(28px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(150%) !important;
+}
+
+.refill-doctor-chat-page.active .refill-chat-composer {
+  left: 50% !important;
+  right: auto !important;
+  width: calc(100% - 8px) !important;
+  max-width: 394px !important;
+  padding-right: 8px !important;
+  padding-left: 8px !important;
+  box-sizing: border-box !important;
+  transform: translateX(-50%) !important;
+}
+
+.refill-doctor-chat-page.active .refill-chat-composer input {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+#refill-doctor-chat .refill-chat-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#refill-doctor-chat .refill-chat-nav > button:last-child {
+  justify-self: end;
+}
+
+#refill-doctor-chat .refill-chat-nav::after {
+  display: none !important;
+}
+
+#refill-order > .subpage-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#refill-order > .subpage-nav > button:last-child {
+  justify-self: end;
+}
+
+#refill-order > .subpage-nav::after {
+  display: none !important;
+}
+
+#refill-order .refill-order-status {
+  margin-top: 18px !important;
+}
+
+.phone-shell:has(#refill-order.page.active) > .mobile-tabs {
+  display: none !important;
+}
+
+#growth-report-2y .longitudinal-nav {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-sizing: border-box;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  border: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#growth-report-2y .longitudinal-nav > button:last-child {
+  justify-self: end;
+}
+
+#growth-report-2y .longitudinal-nav::after {
+  display: none !important;
+}
+
+#growth-report-2y .longitudinal-hero {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  box-sizing: border-box;
+  margin-top: 18px !important;
+}
+
+#growth-report-2y .longitudinal-change-card {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  box-sizing: border-box;
+}
+
+#train-feedback .feedback-hero {
+  margin-top: 18px !important;
+}
+
+#program-detail .detail-consult {
+  grid-template-columns: minmax(0, 1fr) 96px !important;
+  grid-template-rows: auto auto;
+  align-items: end;
+  gap: 12px !important;
+  padding-bottom: var(--ios-card-padding) !important;
+  height: max-content !important;
+  min-height: max-content !important;
+  overflow: visible !important;
+}
+
+#program-detail .detail-consult > div {
+  min-width: 0;
+}
+
+#program-detail .detail-consult > img {
+  align-self: end;
+  max-width: 96px;
+  max-height: 96px;
+}
+
+#program-detail .detail-consult > button {
+  position: static !important;
+  grid-column: 1 / -1;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+#program-detail.page.active {
+  grid-auto-rows: max-content;
+  align-content: start;
+  padding-bottom: 128px !important;
+  scroll-padding-bottom: 112px;
+}
+
+#program-detail > .detail-hero:first-child {
+  margin-top: 18px !important;
+}
+
+#care-plan-detail.page.active {
+  grid-auto-rows: max-content;
+  align-content: start;
+  padding-bottom: 120px !important;
+}
+
+#care-plan-detail .care-detail-hero {
+  height: auto !important;
+  min-height: max-content !important;
+  margin-top: 18px !important;
+  overflow: visible !important;
+}
+
+/* Sheets, dialogs and transient feedback are functional glass. */
+.lesson-modal, .child-picker-modal { background: rgba(22,30,26,.24) !important; backdrop-filter: blur(8px); }
+.lesson-sheet, .child-picker-sheet {
+  border: 1px solid var(--ios-glass-border) !important;
+  border-radius: var(--ios-radius-sheet) var(--ios-radius-sheet) 0 0 !important;
+  background: var(--ios-glass-strong) !important;
+  box-shadow: 0 -18px 54px rgba(20,35,27,.2) !important;
+  backdrop-filter: blur(30px) saturate(145%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(145%) !important;
+}
+
+#childPickerModal {
+  padding: 0 !important;
+}
+
+#childPickerModal.open {
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: stretch !important;
+}
+
+#childPickerModal .child-picker-sheet {
+  flex: 1 1 100%;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  align-self: end;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+  border-left: 0 !important;
+  border-radius: var(--ios-radius-sheet) var(--ios-radius-sheet) 0 0 !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+
+.shop-toast {
+  border: 1px solid var(--ios-glass-border) !important;
+  border-radius: 999px !important;
+  color: var(--ios-label-primary) !important;
+  background: var(--ios-glass-strong) !important;
+  box-shadow: var(--ios-shadow-float) !important;
+  backdrop-filter: blur(24px) !important;
+}
+
+/* Commerce is intentionally neutral and distinct from clinical alerts. */
+#subscribe .shop-hero, #subscribe .member-card, #subscribe .shop-ai-service,
+.benefit-order-card {
+  border-color: rgba(33,118,210,.1) !important;
+  background: var(--ios-surface) !important;
+}
+#subscribe .goods-card { background: var(--ios-surface) !important; }
+#subscribe [class*="price"], .benefit-order-card [class*="price"] { color: var(--ios-blue) !important; }
+
+/* Semantic states include symbols/text in addition to color. */
+[class*="success"], [class*="complete"] { --state-color: var(--ios-green); }
+[class*="warning"], [class*="attention"] { --state-color: var(--ios-orange); }
+[class*="error"], [class*="danger"], [class*="abnormal"] { --state-color: var(--ios-red); }
+.hidden { display: none !important; }
+
+/* Reusable state and form primitives for current and future screens. */
+.ios-segmented-control, [class*="segmented"] {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 16px;
+  background: rgba(83,101,91,.08);
+}
+.ios-segmented-control > .active, [class*="segmented"] > .active {
+  color: var(--ios-label-primary);
+  background: var(--ios-surface);
+  box-shadow: 0 2px 8px rgba(24,43,33,.09);
+}
+.ios-status-badge, [class*="status-badge"] {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: var(--state-color, var(--ios-green));
+  background: color-mix(in srgb, var(--state-color, var(--ios-green)) 11%, white);
+  font-size: 12px;
+  font-weight: 650;
+}
+.ios-toggle-row, .ios-disclosure-row {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ios-separator);
+}
+.ios-empty-state, .ios-loading-state {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  padding: 28px;
+  color: var(--ios-label-secondary);
+  text-align: center;
+}
+.ios-skeleton {
+  overflow: hidden;
+  color: transparent !important;
+  background: linear-gradient(100deg, #edf0ee 25%, #f7f9f8 42%, #edf0ee 60%) !important;
+  background-size: 300% 100% !important;
+  animation: iosSkeleton 1.35s ease infinite;
+}
+@keyframes iosSkeleton { to { background-position-x: -150%; } }
+
+@media (hover: hover) {
+  button:hover, [role="button"]:hover { filter: brightness(.985); }
+  .mobile-tab:hover { color: var(--ios-green) !important; background: rgba(229,242,234,.48) !important; }
+}
+
+@media (max-width: 599px) {
+  .iphone-preview { display: contents; }
+  .iphone-dynamic-island, .iphone-side-button { display: none; }
+  .phone-shell { border-radius: 0 !important; }
+  .mobile-tabs {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: max(8px, env(safe-area-inset-bottom)) !important;
+  }
+  .phone-shell > #plan.page.active,
+  .phone-shell > .page.active:has(> .subpage-nav) {
+    height: calc(100dvh - 82px) !important;
+    max-height: calc(100dvh - 82px) !important;
+  }
+  body.chat-mode .phone-shell > .page.active {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+}
+
+@media (min-width: 600px) {
+  .mobile-tabs { left: 16px !important; right: 16px !important; bottom: 10px !important; }
+
+  /* Reserve the complete Dynamic Island footprint in the hardware preview. */
+  .app-header,
+  .subpage-nav,
+  .seven-plan-nav,
+  .ai-consult-nav,
+  .train-task-nav,
+  .feedback-nav {
+    padding-top: 48px !important;
+  }
+
+  #refill-detail .refill-flow-nav {
+    min-height: 116px !important;
+    padding-top: 64px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .phone-shell > .page.active:not(:has(> .subpage-nav)):not(#plan):not(#chat) {
+    height: calc(874px - 104px - 82px) !important;
+    max-height: calc(874px - 104px - 82px) !important;
+  }
+
+  .phone-shell > #plan.page.active,
+  .phone-shell > .page.active:has(> .subpage-nav) {
+    height: calc(874px - 82px) !important;
+    max-height: calc(874px - 82px) !important;
+  }
+  body.chat-mode .phone-shell > .page.active {
+    height: 874px !important;
+    max-height: 874px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  :root { --ios-page-padding: 14px; --ios-card-padding: 15px; --ios-section-gap: 18px; }
+  .page.active h1 { font-size: 27px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --ios-label-primary: #08110c;
+    --ios-label-secondary: #29362f;
+    --ios-separator: rgba(8,17,12,.32);
+    --ios-glass-border: rgba(8,17,12,.24);
+  }
+  button, input, select, textarea, [role="button"] { border-width: 2px !important; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root { --ios-glass: #f8faf9; --ios-glass-strong: #ffffff; }
+  .app-header, .subpage-nav, .seven-plan-nav, .train-task-nav, .feedback-nav,
+  .mobile-tabs, #chat .ai-consult-input, .refill-chat-composer,
+  .lesson-sheet, .child-picker-sheet, .shop-toast {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--ios-glass-strong) !important;
+  }
+}
